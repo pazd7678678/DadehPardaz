@@ -1,0 +1,17 @@
+{
+    "name": "pzamani/base",
+    "description": "DadehPardaz Base Package",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Pzamani\\Base\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Parisa Zamani",
+            "email": "parisazamanid2022@gmail.com"
+        }
+    ],
+    "require": {}
+}

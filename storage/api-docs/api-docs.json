@@ -1,0 +1,236 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Mofid NGO API",
+        "description": "Mofid NGO API Documentation",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:8000"
+        }
+    ],
+    "paths": {
+        "/api/auth/check": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Check Token Validity",
+                "operationId": "auth_check",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "auth": []
+                    }
+                ]
+            }
+        },
+        "/api/auth/sessions": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Get all of user sessions (first item is current)",
+                "operationId": "auth_get_sessions",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "auth": []
+                    }
+                ]
+            }
+        },
+        "/api/auth/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login",
+                "operationId": "auth_login",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "mobile",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "mobile": {
+                                        "type": "string",
+                                        "example": "09123456789"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "123456"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    }
+                },
+                "security": [
+                    {}
+                ]
+            }
+        },
+        "/api/auth/refresh": {
+            "patch": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Refresh token via refresh_token set as bearer authorization header",
+                "operationId": "auth_refresh",
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    }
+                },
+                "security": [
+                    {
+                        "auth": []
+                    }
+                ]
+            }
+        },
+        "/api/base/health": {
+            "get": {
+                "tags": [
+                    "Base"
+                ],
+                "summary": "Health Check",
+                "operationId": "base_health",
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    }
+                },
+                "security": [
+                    {}
+                ]
+            }
+        },
+        "/api/payment/paytypes": {
+            "get": {
+                "tags": [
+                    "Payment"
+                ],
+                "summary": "Get paytypes",
+                "operationId": "get_payment_paytypes",
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    }
+                },
+                "security": [
+                    {
+                        "auth": []
+                    }
+                ]
+            }
+        },
+        "/api/payment/pay": {
+            "post": {
+                "tags": [
+                    "Payment"
+                ],
+                "summary": "Request a new payment",
+                "operationId": "post_payment_pay",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "paytype_id",
+                                    "description",
+                                    "amount",
+                                    "nationalcode",
+                                    "iban"
+                                ],
+                                "properties": {
+                                    "paytype_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Sample Payment"
+                                    },
+                                    "amount": {
+                                        "type": "integer",
+                                        "example": 1000000
+                                    },
+                                    "nationalcode": {
+                                        "type": "string",
+                                        "example": "1234567890"
+                                    },
+                                    "iban": {
+                                        "type": "string",
+                                        "example": "IR123456789012345678901234"
+                                    },
+                                    "attachment": {
+                                        "type": "file"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    }
+                },
+                "security": [
+                    {
+                        "auth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "auth": {
+                "type": "http",
+                "description": "Use auth/login to get the JWT token",
+                "name": "Authorization",
+                "in": "header",
+                "bearerFormat": "jwt",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "Authentication & Authorization"
+        },
+        {
+            "name": "Base",
+            "description": "Base Information Management"
+        },
+        {
+            "name": "Payment",
+            "description": "Payment Management"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "name": "pzamani/payment",
+    "description": "DadehPardaz Payment Package",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Pzamani\\Payment\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Parisa Zamani",
+            "email": "parisazamanid2022@gmail.com"
+        }
+    ],
+    "require": {}
+}
